@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academia 4.3.1">
+  <meta name="generator" content="Hugo 0.72.0" />
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Ted Carlson">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Data Scientist">
+
+  
+  <link rel="alternate" hreflang="en-us" href="https://tce9232.github.io/">
+
+  
+
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#fc6f5c">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Open+Sans|Roboto+Mono&display=swap">
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/css/academia.min.4e3b2f408b00c06405993e164c128cb2.css">
+
+  
+
+  
+  
+  
+
+  
+  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Ted Carlson&#39;s Data Blog">
+  <link rel="feed" href="/index.xml" type="application/rss+xml" title="Ted Carlson&#39;s Data Blog">
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="https://tce9232.github.io/">
+
+  
+  
+  
+  
+    
+    
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="Ted Carlson&#39;s Data Blog">
+  <meta property="og:url" content="https://tce9232.github.io/">
+  <meta property="og:title" content="Ted Carlson&#39;s Data Blog">
+  <meta property="og:description" content="Data Scientist"><meta property="og:image" content="https://tce9232.github.io/img/icon-192.png">
+  <meta property="twitter:image" content="https://tce9232.github.io/img/icon-192.png"><meta property="og:locale" content="en-us">
+  
+  <meta property="og:updated_time" content="2020-02-04T00:00:00&#43;00:00">
+  
+
+  
+
+
+  
+
+
+
+
+
+  <title>Ted Carlson&#39;s Data Blog</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-target="#navbar-main" data-offset="71" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/">Ted Carlson&#39;s Data Blog</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"><span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about" data-target="#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects" data-target="#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact" data-target="#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/Resume.pdf"><span>Resume</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+        </li>
+        
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+  
+
+
+<span class="js-widget-page d-none"></span>
+
+
+
+
+  
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="about" class="home-section wg-about   "  >
+    <div class="container">
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row" itemprop="author" itemscope itemtype="http://schema.org/Person"
+  itemref="person-email person-telephone">
+  <div class="col-lg-5">
+    <div id="profile">
+      
+      
+      <img class="img-fluid" src="/img/Ted.png" itemprop="image" alt="Avatar">
+      
+    </div>
+    <ul class="network-icon bg-white mx-2 py-2 text-center" aria-hidden="true">
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <li class="mx-3">
+        <a itemprop="sameAs" href="/#contact" >
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <li class="mx-3">
+        <a itemprop="sameAs" href="https://www.linkedin.com/in/ted-david-carlson/" target="_blank" rel="noopener">
+          <i class="fab fa-linkedin"></i>
+        </a>
+      </li>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      <li class="mx-3">
+        <a itemprop="sameAs" href="https://github.com/tce9232" target="_blank" rel="noopener">
+          <i class="fab fa-github"></i>
+        </a>
+      </li>
+      
+    </ul>
+  </div>
+  <div class="col-lg-7" itemprop="description">
+
+    <div class="portrait-title">
+      <h2 itemprop="name">Ted Carlson</h2>
+      <h3 class="d-inline-block" itemprop="jobTitle">Data Scientist,</h3>
+
+      
+      <h3 class="d-inline-block" itemprop="worksFor" itemscope itemtype="http://schema.org/Organization">
+        
+          <span itemprop="name">Exact Sciences</span>
+          
+      </h3>
+      
+    </div>
+
+    <link itemprop="url" href="">
+
+
+
+    <p>Ted Carlson is a data scientist in Madison, Wisconsin with an M.S. in Analytics from Northwestern University. Data is at the center of the contemporary discourse and he aspires to be an active participant in these conversations by observing, collecting and analyzing the data around him. He is delighted to share his projects in an accessible way with his audience.</p>
+
+
+    
+    <a href="files/Resume.pdf" class="btn btn-primary btn-lg"><i class="fas fa-download mr-2" aria-hidden="true"></i>View Resume</a>
+    
+
+
+    
+  </div>
+</div>
+
+    </div>
+  </section>
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="Professional Experience" class="home-section wg-experience   "  >
+    <div class="container">
+      
+
+
+
+<div class="row">
+  <div class="col-12 col-lg-4 section-heading">
+    <h1>Professional Experience</h1>
+    
+  </div>
+  <div class="col-12 col-lg-8">
+    
+
+    
+    
+    
+    <div class="row experience">
+      
+      <div class="col-auto text-center flex-column d-none d-sm-flex">
+        <div class="row h-50">
+          <div class="col ">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+        <div class="m-2">
+          <span class="badge badge-pill border exp-fill">&nbsp;</span>
+        </div>
+        <div class="row h-50">
+          <div class="col border-right">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+      </div>
+      
+      <div class="col py-2">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title exp-title text-muted mt-0 mb-1">Data Scientist</h4>
+            <h4 class="card-title exp-company text-muted my-0"><a href="https://www.exactsciences.com/" target="_blank" rel="noopener">Exact Sciences</a></h4>
+            <div class="text-muted exp-meta">
+              Jan 2020 –
+              
+                Present
+              
+              
+                <span class="middot-divider"></span>
+                <span>Madison, Wisconsin</span>
+              
+            </div>
+            <div class="card-text"><ul>
+<li>Modeled our sales rep effectiveness using scikit learn to determine the value of calls across health specialties.</li>
+<li>Built a Tableau dashboard for leadership to track sales targets, target new physicians and analyze customer habits.</li>
+<li>Coded a fuzzy matching algorithm in Python to join unstructured data in our marketing channel with over 80% recall.</li>
+</ul>
+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row experience">
+      
+      <div class="col-auto text-center flex-column d-none d-sm-flex">
+        <div class="row h-50">
+          <div class="col border-right">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+        <div class="m-2">
+          <span class="badge badge-pill border ">&nbsp;</span>
+        </div>
+        <div class="row h-50">
+          <div class="col border-right">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+      </div>
+      
+      <div class="col py-2">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title exp-title text-muted mt-0 mb-1">Data Science Intern</h4>
+            <h4 class="card-title exp-company text-muted my-0"><a href="https://www.ups.com/us/en/Home.page" target="_blank" rel="noopener">UPS</a></h4>
+            <div class="text-muted exp-meta">
+              Jun 2019 –
+              
+                Sep 2019
+              
+              
+                <span class="middot-divider"></span>
+                <span>Louisville, Kentucky</span>
+              
+            </div>
+            <div class="card-text"><ul>
+<li>Created a machine learning model in Python using keras to analyze key driver and route performance measures.</li>
+<li>Analyzed time-series data in Python to monitor the progress of 250,000 drivers toward their performance goals.</li>
+</ul>
+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row experience">
+      
+      <div class="col-auto text-center flex-column d-none d-sm-flex">
+        <div class="row h-50">
+          <div class="col border-right">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+        <div class="m-2">
+          <span class="badge badge-pill border ">&nbsp;</span>
+        </div>
+        <div class="row h-50">
+          <div class="col ">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+      </div>
+      
+      <div class="col py-2">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title exp-title text-muted mt-0 mb-1">Reporting Analyst</h4>
+            <h4 class="card-title exp-company text-muted my-0"><a href="https://amfam.com/" target="_blank" rel="noopener">American Family Insurance</a></h4>
+            <div class="text-muted exp-meta">
+              May 2014 –
+              
+                Jun 2018
+              
+              
+                <span class="middot-divider"></span>
+                <span>Madison, Wisconsin</span>
+              
+            </div>
+            <div class="card-text"><ul>
+<li>Led a team developing a Tableau dashboard to measure the performance of our telematics data program, which directly measured the driving performance of 20,000 customers through a smartphone app.</li>
+<li>Communicated with Sales teams across all of our operating states to coordinate the rollout of our program and teach them to use the dashboard to find ways for them to effectively sell the discount program in their area.</li>
+</ul>
+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+  </div>
+</div>
+
+    </div>
+  </section>
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="Education" class="home-section wg-experience   "  >
+    <div class="container">
+      
+
+
+
+<div class="row">
+  <div class="col-12 col-lg-4 section-heading">
+    <h1>Education</h1>
+    
+  </div>
+  <div class="col-12 col-lg-8">
+    
+
+    
+    
+    
+    <div class="row experience">
+      
+      <div class="col-auto text-center flex-column d-none d-sm-flex">
+        <div class="row h-50">
+          <div class="col ">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+        <div class="m-2">
+          <span class="badge badge-pill border ">&nbsp;</span>
+        </div>
+        <div class="row h-50">
+          <div class="col border-right">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+      </div>
+      
+      <div class="col py-2">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title exp-title text-muted mt-0 mb-1">Northwestern University</h4>
+            <h4 class="card-title exp-company text-muted my-0">Master of Science in Analytics</h4>
+            <div class="text-muted exp-meta">
+              Aug 2018 –
+              
+                Dec 2019
+              
+              
+                <span class="middot-divider"></span>
+                <span>Evanston, Illinois</span>
+              
+            </div>
+            <div class="card-text"><p>Key Coursework:</p>
+<ul>
+<li>Data Mining</li>
+<li>Big Data Analytics</li>
+<li>Deep Learning</li>
+<li>Text Analytics</li>
+<li>Social Network Analysis</li>
+</ul>
+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row experience">
+      
+      <div class="col-auto text-center flex-column d-none d-sm-flex">
+        <div class="row h-50">
+          <div class="col border-right">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+        <div class="m-2">
+          <span class="badge badge-pill border ">&nbsp;</span>
+        </div>
+        <div class="row h-50">
+          <div class="col ">&nbsp;</div>
+          <div class="col">&nbsp;</div>
+        </div>
+      </div>
+      
+      <div class="col py-2">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title exp-title text-muted mt-0 mb-1">University of Wisconsin - Madison</h4>
+            <h4 class="card-title exp-company text-muted my-0">Bachelor of Science in Mathematics and Statistics</h4>
+            <div class="text-muted exp-meta">
+              Aug 2010 –
+              
+                May 2014
+              
+              
+                <span class="middot-divider"></span>
+                <span>Madison, Wisconsin</span>
+              
+            </div>
+            <div class="card-text"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+  </div>
+</div>
+
+    </div>
+  </section>
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="accomplishments" class="home-section wg-accomplishments   "  >
+    <div class="container">
+      
+
+
+
+<div class="row">
+  <div class="col-12 text-center section-heading">
+    <h1>Accomplish­ments</h1>
+    
+    
+  </div>
+
+  
+  
+  <div class="col-lg-6 col-md-6 mb-4">
+    <div class="card experience course shadow-sm rounded-0 border-0">
+      <div class="card-body"><h4 class="card-title exp-title text-muted my-0">Runner Up for Best Project</h4><div class="card-subtitle my-0 article-metadata">UPS Employee Hackathon<span class="middot-divider"></span>
+
+          Jun 2019
+          
+        </div>
+
+        
+        <div class="card-text">Created an app for managers to geospatially track driving data, and identify difficult route segments.</div>
+        
+
+        
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-lg-6 col-md-6 mb-4">
+    <div class="card experience course shadow-sm rounded-0 border-0">
+      <div class="card-body"><h4 class="card-title exp-title text-muted my-0">Best Data Visual</h4><div class="card-subtitle my-0 article-metadata">Northwestern University Hackathon<span class="middot-divider"></span>
+
+          May 2019
+          
+        </div>
+
+        
+        <div class="card-text">Using data provided by ABC Supply Co, I created a map that geospatially tracked customer segmentations.</div>
+        
+
+        
+      </div>
+    </div>
+  </div>
+  
+  
+</div>
+</div>
+    </div>
+  </section>
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="projects" class="home-section wg-portfolio   "  >
+    <div class="container">
+      
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div class="col-12 text-center section-heading">
+
+    <h1>Projects</h1>
+    
+
+  </div>
+  <div class="col-12">
+
+    
+
+      
+
+      
+
+      
+
+      
+      
+      
+      
+      
+      
+
+      <span class="d-none default-project-filter">*</span>
+
+      
+      
+      <div class="project-toolbar">
+        <div class="project-filters">
+          <ul class="list-inline text-center">
+            <li class="list-inline-item">
+              
+              
+              
+              
+              
+              <a href="#" data-filter="*"
+                class="btn btn-primary btn-lg active">All</a>
+              
+              
+              
+              
+              <a href="#" data-filter=".js-id-Clustering"
+                class="btn btn-primary btn-lg">Clustering</a>
+              
+              
+              
+              
+              <a href="#" data-filter=".js-id-D3"
+                class="btn btn-primary btn-lg">D3</a>
+              
+              
+              
+              
+              <a href="#" data-filter=".js-id-Movies"
+                class="btn btn-primary btn-lg">Movies</a>
+              
+              
+              
+              
+              <a href="#" data-filter=".js-id-College"
+                class="btn btn-primary btn-lg">College</a>
+              
+            </li>
+          </ul>
+        </div>
+      </div>
+      
+      
+
+      <div class="isotope projects-container js-layout-masonry ">
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+<div class="project-card project-item isotope-item js-id-D3 js-id-Movies">
+  <div class="card rounded-0 shadow-sm">
+    
+    
+    <a href="/project/oscars-so-white/"  class="card-image">
+      <img src="/project/oscars-so-white/featured_hub1e9ad8922b6a5861595b1f94efbadc9_19905_550x0_resize_q90_lanczos.jpg" alt="" class="img-responsive">
+    </a>
+    
+    <div class="card-body">
+      <h4><a href="/project/oscars-so-white/" >Oscars So White (Again)</a></h4>
+      <div class="card-desription">
+        <p>Searching for gender parody in Academy Award nominations and winners</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+
+
+<div class="project-card project-item isotope-item js-id-College js-id-D3 js-id-Clustering">
+  <div class="card rounded-0 shadow-sm">
+    
+    
+    <a href="https://studentloans.herokuapp.com" target="_blank" rel="noopener" class="card-image">
+      <img src="/project/student-loans/featured_hu66ce19ed94e7a5bd6e481f52b28f1509_3503397_550x0_resize_q90_lanczos.jpg" alt="" class="img-responsive">
+    </a>
+    
+    <div class="card-body">
+      <h4><a href="https://studentloans.herokuapp.com" target="_blank" rel="noopener">Student Loans</a></h4>
+      <div class="card-desription">
+        <p>An analysis of the student loans industry written for the Northwestern Analytics Research Blog</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+        
+        
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+  </section>
+
+  
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+  
+
+  
+  
+  
+  
+  
+
+  
+  
+
+  <section id="contact" class="home-section wg-contact   "  >
+    <div class="container">
+      
+
+
+
+
+<div class="row contact-widget">
+  <div class="col-12 text-center section-heading">
+    <h1>Contact Me</h1>
+    
+  </div>
+  <div class="col-12">
+    
+  </div>
+  <div class="col-md-6">
+    
+
+  </div>
+  <div class="col-md-6">
+    <ul class="fa-ul" itemscope>
+      
+      <li>
+        <i class="fa-li fas fa-envelope mt-2" aria-hidden="true"></i>
+        <span id="person-email" itemprop="email"><a
+            href="mailto:TedDavidCarlson@gmail.com">TedDavidCarlson@gmail.com</a></span>
+      </li>
+      
+
+      
+      <li>
+        <i class="fa-li fas fa-phone mt-2" aria-hidden="true"></i>
+        <span id="person-telephone" itemprop="telephone"><a href="tel:715.577.8851">715.577.8851</a></span>
+      </li>
+      
+
+      
+
+      
+
+      
+
+    </ul>
+  </div>
+  <div class="col-12">
+    
+  </div>
+</div>
+    </div>
+  </section>
+
+
+
+      
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="/js/academia.min.7276a6a3624de715a5c7f54c7c07696d.js"></script>
+
+    
+
+
+
+
+
+
+  
+  <div class="container">
+    <footer class="site-footer">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        
+        <p>
+          
+          Powered by
+          <a href="https://themefisher.com" target="_blank" rel="noopener">themefisher</a> for
+          <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+        </p>
+      </div>
+      <div class="col-md-6">
+        <ul class="list-inline network-icon text-right">
+          
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
