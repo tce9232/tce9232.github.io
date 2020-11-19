@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Projects on Ted Carlson&#39;s Data Blog</title>
-    <link>/project/</link>
-    <description>Recent content in Projects on Ted Carlson&#39;s Data Blog</description>
+    <title>Web Scraping on Ted Carlson&#39;s Data Blog</title>
+    <link>/tags/web-scraping/</link>
+    <description>Recent content in Web Scraping on Ted Carlson&#39;s Data Blog</description>
     <generator>Source Themes academia (https://sourcethemes.com/academic/)</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 15 Nov 2020 13:41:02 -0600</lastBuildDate>
     
-	    <atom:link href="/project/index.xml" rel="self" type="application/rss+xml" />
+	    <atom:link href="/tags/web-scraping/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -86,27 +86,6 @@ Plotly.d3.json(&#34;/plotly/Value-Units-Scatter.json&#34;, function(err, fig) {
 &lt;p&gt;Since there are so many properties, I also found it important to let the user only focus on those that are of interest to them. Whenever you&amp;rsquo;re hovering over a property, it&amp;rsquo;s highlighted pink, as well as any other properties that are owned by the same landlord. There&amp;rsquo;s also a toggle built in that lets you click on any individual property remove any points on the map that aren&amp;rsquo;t owned by the same landlord. This can all be reset by clicking the &amp;ldquo;reset map&amp;rdquo; button or any blank area.&lt;/p&gt;
 &lt;p&gt;Although I believe this map can be informative as is, I welcome any feedback or feature improvements to either the data consolidation, cleaning or visualization processes.&lt;/p&gt;
 </description>
-    </item>
-    
-    <item>
-      <title>Oscars So White (Again)</title>
-      <link>/project/oscars-so-white/</link>
-      <pubDate>Tue, 04 Feb 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/project/oscars-so-white/</guid>
-      <description>&lt;div class=&#34;responsive-wrap&#34;&gt;
-  &lt;iframe src=&#34;article.html&#34; frameborder=&#34;0&#34; width=&#34;960&#34; height=&#34;569&#34; allowfullscreen=&#34;true&#34; mozallowfullscreen=&#34;true&#34; webkitallowfullscreen=&#34;true&#34;&gt;&lt;/iframe&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Student Loans</title>
-      <link>/project/student-loans/</link>
-      <pubDate>Sun, 10 Nov 2019 00:00:00 +0000</pubDate>
-      
-      <guid>/project/student-loans/</guid>
-      <description></description>
     </item>
     
   </channel>

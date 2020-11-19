@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academia 4.3.1">
+  <meta name="generator" content="Hugo 0.72.0" />
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Ted Carlson">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="Examining the rental landscape of Madison, Wisconsin">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/project/madison-landlords/">
+
+  
+
+
+  
+
+  
+  
+  
+  <meta name="theme-color" content="#fc6f5c">
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+
+    
+
+  
+
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Open+Sans|Roboto+Mono&display=swap">
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="/css/academia.min.4e3b2f408b00c06405993e164c128cb2.css">
+
+  
+
+  
+  
+    <script>
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-157449578-3', 'auto');
+      
+      ga('require', 'eventTracker');
+      ga('require', 'outboundLinkTracker');
+      ga('require', 'urlChangeTracker');
+      ga('send', 'pageview');
+    </script>
+    <script async src="//www.google-analytics.com/analytics.js"></script>
+    
+    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
+    
+  
+  
+
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="/project/madison-landlords/">
+
+  
+  
+  
+  
+    
+  
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="og:site_name" content="Ted Carlson&#39;s Data Blog">
+  <meta property="og:url" content="/project/madison-landlords/">
+  <meta property="og:title" content="Madison Landlord Lookup Tool | Ted Carlson&#39;s Data Blog">
+  <meta property="og:description" content="Examining the rental landscape of Madison, Wisconsin"><meta property="og:image" content="/project/madison-landlords/featured.jpg">
+  <meta property="twitter:image" content="/project/madison-landlords/featured.jpg"><meta property="og:locale" content="en-us">
+  
+  <meta property="article:published_time" content="2020-11-15T13:41:02-06:00">
+  
+  <meta property="article:modified_time" content="2020-11-15T13:41:02-06:00">
+  
+
+  
+
+
+  
+
+
+
+
+
+  <title>Madison Landlord Lookup Tool | Ted Carlson&#39;s Data Blog</title>
+
+</head>
+
+
+<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
+  <div class="container">
+
+    
+      <a class="navbar-brand" href="/">Ted Carlson&#39;s Data Blog</a>
+      
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"><span><i class="fas fa-bars"></i></span>
+      </button>
+      
+
+    
+    <div class="collapse navbar-collapse" id="navbar">
+
+      
+      
+      <ul class="navbar-nav ml-auto">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>Home</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#projects"><span>Projects</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#contact"><span>Contact</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/files/Resume.pdf"><span>Resume</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+
+        
+
+        
+
+        
+        <li class="nav-item">
+          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
+        </li>
+        
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+  <article class="article article-project py-5" itemscope itemtype="http://schema.org/Article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="container split-header">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+        <img class="img-fluid w-100" src="/project/madison-landlords/featured_hue4288c3971c9e4900ff6b6bd5d3b3e1e_270349_680x500_fill_q90_lanczos_smart1.jpg" itemprop="image" alt="">
+        <span
+          class="article-header-caption">The Hub Apartment Complex on State Street in Madison</span>
+    </div>
+    <div class="col-lg-8">
+      <h1 itemprop="name">Madison Landlord Lookup Tool</h1>
+
+      
+
+      
+
+
+
+<meta content="2020-11-15 13:41:02 -0600 CST" itemprop="datePublished">
+<meta content="2020-11-15 13:41:02 -0600 CST" itemprop="dateModified">
+
+<div class="article-metadata">
+
+  
+  
+  
+  
+  <div>
+    
+
+
+
+  <span itemprop="author name" itemtype="http://schema.org/Person"><a href="/authors/ted-carlson/">Ted Carlson</a></span>
+
+  </div>
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+    
+    <time>Nov 15, 2020</time>
+  </span>
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+    
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/project/madison-landlords/&amp;text=Madison%20Landlord%20Lookup%20Tool" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/project/madison-landlords/&amp;t=Madison%20Landlord%20Lookup%20Tool" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook-f"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=Madison%20Landlord%20Lookup%20Tool&amp;body=/project/madison-landlords/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/project/madison-landlords/&amp;title=Madison%20Landlord%20Lookup%20Tool" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://web.whatsapp.com/send?text=Madison%20Landlord%20Lookup%20Tool%20/project/madison-landlords/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/project/madison-landlords/&amp;title=Madison%20Landlord%20Lookup%20Tool" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  
+
+</div>
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    
+    </div>
+  </div>
+</div>
+
+  <div class="article-container">
+
+    <div class="article-style" itemprop="articleBody">
+      <p>Everyone who has changed leases in Madison Wisconsin, or even just been in town during the nights of July 31st or August 14th knows the horrors of Madison moving day. For those that haven&rsquo;t experienced this ritual, it forces thousands of prodominately students and younger tenents to move out a full day, or even up to a couple weeks before their new lease kicks in. Almost all Madsion leases either start on August 1st or August 15th, but you&rsquo;re typically required to move out the previous day. This causes a huge battle for U-Hauls and parking spaces so residents can pack up all of their belongings and move to the place they&rsquo;re going to stay the night before their new lease begins. Some especially unlucky tenents will have to pay double rent for the first half of August, as their leases overlap, or even worse, not have any lease for that time period. For people that have lived in Madison as long as I have, this ritual might seem almost normal. But for those that are new students or new to the Madison renting schedule, this phenomenon makes no sense at all.</p>
+<p>However, from a property management perspective, this ritual makes perfect sense. It balances out your leases so you only have to pay for maintenance and cleaning during one day, and since month-to-month leases aren&rsquo;t common, you don&rsquo;t have to worry about constantly finding new tenents. There&rsquo;s a very predictable yearly leasing pattern that allows you to properly market and sell your properties at the highest price possible.</p>
+<p>So what gives? Why are landlords allowed to force tenents to accomidate to their schedule, and why doesn&rsquo;t our state and local government push back? <a href="https://www.evictedbook.com/">Entire books</a> can be written about how unfair the Wisconsin housing protections are. And Madison is still primarily a college town, which can lead to more preditory leases. But I wanted to take a closer look at the networks of Madison properties and their owners to see if I could visualize the extent to which the properties downtown and near campus are monopolized by just a handful of property management companies. Creating this visualization/tool could also lead to better tenent organization, as tenents would easily be able to see which addresses were owned by the same landlord.</p>
+<p><img src="/img/hippiechristmas.jpg" alt="pic_name"></p>
+<h3 id="data-scraping">Data Scraping</h3>
+<p>The City of Madison Assessor&rsquo;s Office website allows you to search and obtain data for any commercial or residential property in Madison. By doing a bit of manual work and a bit of web scraping, I was able to obtain a link to every property in Madison that was owned by an entity that starts with a standard English alpha-numeric character. Another python script visited each page and scraped information like the address, owner name, property value, property type (Apartment, Condo, etc..) and property class (commerical, residential, etc..). Here&rsquo;s an example of the text parsing require to get a property&rsquo;s address:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">address <span style="color:#f92672">=</span> soup<span style="color:#f92672">.</span>find(<span style="color:#e6db74">&#39;span&#39;</span>, class_<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;nav-heading&#39;</span>)
+    p <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>compile(<span style="color:#e6db74">&#39;Address[\s]+([\w ,&amp;-+%#]+)&#39;</span>)
+</code></pre></div><h3 id="data-cleaning">Data Cleaning</h3>
+<p>In order to properly clean the data, I needed to fill missing values with zeros and removing the dollar sign from the property values. For the purposes of this project, I combined both Condos and Apartments as &ldquo;Apartments&rdquo;. This is because the owners of these condos according to the Assessor&rsquo;s website are often the owners of the building.</p>
+<p>The most important aspect of the cleaning was finding a proper mapping for owner names. This is challenging because you&rsquo;ll often the same owner with different names depending on the building. Some of these are typos, but most of them are a result of displaying additional information in the owner name, like the address or name of the property manager (who usually works for the property management company). This was the most labor intensive aspect of the project, and I couldn&rsquo;t find a better way to accomplish this except looking for key characters that would indicate something like this happening (# was often used before an address or property manager name) or searching for the biggest rental companies I knew in Madison and seeing if they had a consistent naming pattern.</p>
+<p>Once this owner name cleaning was done, I was able to calculate the number of units from each apartment by parsing the building information using the following python code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">p <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>compile(<span style="color:#e6db74">&#39;([\d]+) unit&#39;</span>)
+df[<span style="color:#e6db74">&#39;Units&#39;</span>] <span style="color:#f92672">=</span> df[<span style="color:#e6db74">&#39;property_type&#39;</span>]<span style="color:#f92672">.</span>str<span style="color:#f92672">.</span>findall(p)
+df[<span style="color:#e6db74">&#39;Units&#39;</span>] <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>to_numeric(df[<span style="color:#e6db74">&#39;Units&#39;</span>]<span style="color:#f92672">.</span>apply(<span style="color:#66d9ef">lambda</span> x: <span style="color:#ae81ff">1</span> <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> x <span style="color:#66d9ef">else</span> x <span style="color:#66d9ef">if</span> isinstance(x, float) <span style="color:#66d9ef">else</span> x[<span style="color:#ae81ff">0</span>]))
+</code></pre></div><p>I was then able to sum the total number of buildings, units, and property value for each owner name, which helped create aggregated statistics for each property owner across Madison.</p>
+<p>At this point, I had to make a decision about which properties should be included in this dataset. I didn&rsquo;t want to include private personal properties, but I still wanted to make sure I was including houses that got split into floors and were leased out, as constitute a majority of the units around campus. For these reasons, I included any apartments or single family homes that were either owned by somebody with multiple properties or had a value over $1 million. This isn&rsquo;t a perfect metric, as there are obviously private homes worth more than $1 million in Madison, but it was the only way I found to ensure the inclusion of large apartment complexes that were, for whatever reason, classified as single family homes.</p>
+<p>Once I finalized the properties that would be included in the visualization, I converted each of their text addresses into long-lats using GeoPy in the following code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># 1 - conveneint function to delay between geocoding calls</span>
+geocode <span style="color:#f92672">=</span> RateLimiter(locator<span style="color:#f92672">.</span>geocode, min_delay_seconds<span style="color:#f92672">=</span><span style="color:#ae81ff">1</span>)
+landlordDF[<span style="color:#e6db74">&#39;exact_address&#39;</span>] <span style="color:#f92672">=</span> landlordDF[<span style="color:#e6db74">&#39;address&#39;</span>]<span style="color:#f92672">.</span>apply(<span style="color:#66d9ef">lambda</span> x: str(x) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34; Madison, Wisconsin USA&#34;</span>)
+<span style="color:#75715e"># 2- - create location column</span>
+landlordDF[<span style="color:#e6db74">&#39;location&#39;</span>] <span style="color:#f92672">=</span> landlordDF[<span style="color:#e6db74">&#39;exact_address&#39;</span>]<span style="color:#f92672">.</span>apply(geocode)
+<span style="color:#75715e"># 3 - create longitude, laatitude and altitude from location column (returns tuple)</span>
+landlordDF[<span style="color:#e6db74">&#39;point&#39;</span>] <span style="color:#f92672">=</span> landlordDF[<span style="color:#e6db74">&#39;location&#39;</span>]<span style="color:#f92672">.</span>apply(<span style="color:#66d9ef">lambda</span> loc: tuple(loc<span style="color:#f92672">.</span>point) <span style="color:#66d9ef">if</span> loc <span style="color:#66d9ef">else</span> None)
+<span style="color:#75715e"># 4 - split point column into latitude, longitude and altitude columns</span>
+landlordDF[[<span style="color:#e6db74">&#39;latitude&#39;</span>, <span style="color:#e6db74">&#39;longitude&#39;</span>, <span style="color:#e6db74">&#39;altitude&#39;</span>]] <span style="color:#f92672">=</span> pd<span style="color:#f92672">.</span>DataFrame(landlordDF[<span style="color:#e6db74">&#39;point&#39;</span>]<span style="color:#f92672">.</span>tolist(), index<span style="color:#f92672">=</span>landlordDF<span style="color:#f92672">.</span>index)
+</code></pre></div><p>This step is tricky, as you can easily max out on calls to GeoPy if you don&rsquo;t limit your call attempts. But after almost a full day of letting this code run, it allowed me to convert the data into a GeoJSON format, which is easily readable by Mapbox.</p>
+<h3 id="data-analysis">Data Analysis</h3>
+<p>After gathering and aggregating this data, my first goal was to see which landlords owned the collective highest valued properties in Madison. Looking at the top ten landlords by property value, it becomes clear that owning a large apartment complex or two will add to a higher value than a large portfolio of homes or small apartment buildings.</p>
+<p>
+  
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+
+
+<div id="/plotly/Properties-Owner-Bar.json" class="plotly" style="height:600px"></div>
+<script>
+Plotly.d3.json("/plotly/Properties-Owner-Bar.json", function(err, fig) {
+    Plotly.plot('\/plotly\/Properties-Owner-Bar.json', fig.data, fig.layout, {responsive: true});
+});
+</script></p>
+<p>Every owner except Forward Management, who owns a bunch of properties on the far East and West sides, owns 11 or fewer buildings. The landlord with the highest valued portfolio is Core Campus Madison LLC, who owns The Hub and The James, two gigantic luxury apartment complexes near downtown and campus. Since we noticed this trend of landlords with fewer properties owning the most property value, I wanted to see how this relationship looked across all landlords in my database.</p>
+
+
+<div id="/plotly/Value-Properties-Scatter.json" class="plotly" style="height:600px"></div>
+<script>
+Plotly.d3.json("/plotly/Value-Properties-Scatter.json", function(err, fig) {
+    Plotly.plot('\/plotly\/Value-Properties-Scatter.json', fig.data, fig.layout, {responsive: true});
+});
+</script>
+<p>The plot seems to tell us that landlords with fewer properties tend to own more valuable ones, but landlords with more properties own relatively little in value. This seems to be because developers of large luxury apartments tend to just own a few properties, but manage hundreds of units. On the flip side, there are some landlords like Madtown Properties Inc and Madison Opera Inc that own large buildings of condos that are individually listed at very low prices. Madtown Properties Inc owns the condos near Hilldale Mall, which are valued at only $15,000 each, and Madison Opera Inc owns the condos on 23 N Brooms St, which are valued at $8,000 each.</p>
+<p>Perhaps a better visualization would be to look at a landlords total values against their total number of rental units. I measured these by scraping any number that came after the word &ldquo;Unit&rdquo; in the building description, and if there was none, then just defaulting to 1.</p>
+
+
+<div id="/plotly/Value-Units-Scatter.json" class="plotly" style="height:600px"></div>
+<script>
+Plotly.d3.json("/plotly/Value-Units-Scatter.json", function(err, fig) {
+    Plotly.plot('\/plotly\/Value-Units-Scatter.json', fig.data, fig.layout, {responsive: true});
+});
+</script>
+<p>This plot shows a much stronger positive correlation between units and property value. Core Campus ends up close to the top of the chart, over the top of the trend because of their luxury apartment value, and owners like Nob Hill Investments, with affordable apartments on the far south side end up on the lower end of the linear trend.</p>
+<p>Visualizing this data helps us understand how the Madison rental property value is distributed among its landlords. But Madison is a city with many (relatively) unique neighborhoods, and in order to better understand these property managment company&rsquo;s relationships with the community, we need to see where they own property in relation to campus, downtown and the suburbs.</p>
+<h3 id="plotting-with-mapbox">Plotting with Mapbox</h3>
+<p>You can find the most recent version of the Mapbox visualization at the following link: <a href="https://madison-landlords.herokuapp.com/">Madison Landlord Lookup</a></p>
+<p>The goal for my final visualization was to give the user some basic statistics for Madison properties both on the individual property and property owner levels. The constantly floating tooltip in the upper left corner gives the user these stats about whichever property was the last one they hovered over.</p>
+<p>Since there are so many properties, I also found it important to let the user only focus on those that are of interest to them. Whenever you&rsquo;re hovering over a property, it&rsquo;s highlighted pink, as well as any other properties that are owned by the same landlord. There&rsquo;s also a toggle built in that lets you click on any individual property remove any points on the map that aren&rsquo;t owned by the same landlord. This can all be reset by clicking the &ldquo;reset map&rdquo; button or any blank area.</p>
+<p>Although I believe this map can be informative as is, I welcome any feedback or feature improvements to either the data consolidation, cleaning or visualization processes.</p>
+
+    </div>
+
+    
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tags/web-scraping/">Web Scraping</a>
+  
+  <a class="badge badge-light" href="/tags/mapbox/">MapBox</a>
+  
+</div>
+
+
+    
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+
+
+
+
+
+  
+  
+  
+  
+  <div class="media author-card" itemscope itemtype="http://schema.org/Person">
+    
+
+    <div class="media-body">
+      <h5 class="card-title" itemprop="name"><a href="/authors/ted-carlson/"></a></h5>
+      
+      
+      <ul class="network-icon" aria-hidden="true">
+        
+      </ul>
+    </div>
+  </div>
+
+
+
+
+    
+    
+
+    
+    
+    
+
+    
+    
+    
+    </div>
+
+    
+    
+    
+    </div>
+  </div>
+</article>
+
+
+
+      
+
+    
+    
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
+        
+      
+
+      
+      
+    
+
+    
+    
+
+    
+    
+    
+
+    
+    
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <script src="/js/academia.min.7276a6a3624de715a5c7f54c7c07696d.js"></script>
+
+    
+
+
+
+
+
+
+  
+  <div class="container">
+    <footer class="site-footer">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        
+        <p class="powered-by">
+          <a href="/privacy/">Privacy Policy</a>
+        </p>
+        
+        <p>
+          
+          Powered by
+          <a href="https://themefisher.com" target="_blank" rel="noopener">themefisher</a> for
+          <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+        </p>
+      </div>
+      <div class="col-md-6">
+        <ul class="list-inline network-icon text-right">
+          
+          
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
