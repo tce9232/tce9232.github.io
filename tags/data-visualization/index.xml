@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data Visualization on Ted Carlson&#39;s Data Blog</title>
+    <link>/tags/data-visualization/</link>
+    <description>Recent content in Data Visualization on Ted Carlson&#39;s Data Blog</description>
+    <generator>Source Themes academia (https://sourcethemes.com/academic/)</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 28 Nov 2020 13:41:02 -0600</lastBuildDate>
+    
+	    <atom:link href="/tags/data-visualization/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Analyzing Music and Emotion with NLP</title>
+      <link>/project/song-lyrics/</link>
+      <pubDate>Sat, 28 Nov 2020 13:41:02 -0600</pubDate>
+      
+      <guid>/project/song-lyrics/</guid>
+      <description>
+  
+  &lt;script src=&#34;https://cdn.plot.ly/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
+
+&lt;h3 id=&#34;pop-metal-and-hip-hop-emotions&#34;&gt;Pop, Metal and Hip Hop Emotions&lt;/h3&gt;
+
+
+&lt;div id=&#34;/plotly/3DLyricScatter.json&#34; class=&#34;plotly&#34; style=&#34;height:600px&#34;&gt;&lt;/div&gt;
+&lt;script&gt;
+Plotly.d3.json(&#34;/plotly/3DLyricScatter.json&#34;, function(err, fig) {
+    Plotly.plot(&#39;\/plotly\/3DLyricScatter.json&#39;, fig.data, fig.layout, {responsive: true});
+});
+&lt;/script&gt;
+&lt;h3 id=&#34;rock-music-emotions&#34;&gt;Rock Music Emotions&lt;/h3&gt;
+
+
+&lt;div id=&#34;/plotly/3DRockLyricScatter.json&#34; class=&#34;plotly&#34; style=&#34;height:600px&#34;&gt;&lt;/div&gt;
+&lt;script&gt;
+Plotly.d3.json(&#34;/plotly/3DRockLyricScatter.json&#34;, function(err, fig) {
+    Plotly.plot(&#39;\/plotly\/3DRockLyricScatter.json&#39;, fig.data, fig.layout, {responsive: true});
+});
+&lt;/script&gt;
+&lt;h3 id=&#34;rap-music-emotions&#34;&gt;Rap Music Emotions&lt;/h3&gt;
+
+
+&lt;div id=&#34;/plotly/3DRapLyricScatter.json&#34; class=&#34;plotly&#34; style=&#34;height:600px&#34;&gt;&lt;/div&gt;
+&lt;script&gt;
+Plotly.d3.json(&#34;/plotly/3DRapLyricScatter.json&#34;, function(err, fig) {
+    Plotly.plot(&#39;\/plotly\/3DRapLyricScatter.json&#39;, fig.data, fig.layout, {responsive: true});
+});
+&lt;/script&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
