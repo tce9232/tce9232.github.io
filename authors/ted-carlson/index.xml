@@ -21,7 +21,35 @@
   
   &lt;script src=&#34;https://cdn.plot.ly/plotly-latest.min.js&#34;&gt;&lt;/script&gt;
 
+&lt;p&gt;Ask any music fanatic about their favorite music genre and you&amp;rsquo;re bound to get a lot of strong opinions. But with music constantly evolving and genres expanding, how much can you really infer from this preference? For Rock fans, you could favor the 1960s British invasion, classic rock 70s, prog-rock 80s, alternative rock 90s, or nu-metal early 2000s. All of these eras have distinctive sounds, and with it, mostly different fans.&lt;/p&gt;
+&lt;p&gt;A lot of these musical differences could stem from the sound evolution that came from inventions like the electric guitar or drum machine, but I sought to quantify them in the lyrics themselves. There&amp;rsquo;s a list of stereotypes that many music fans intuitively know for each genre. For instance, Hip-Hop is angrier than Pop, which is happier than Country, which is sadder than Rock. A lot of these stereotypes stem from the sound and media portrayals, but I wanted to quantify these attributes by categorizing an artist&amp;rsquo;s lyrics, to see how often lyrics conveying a certain emotion appeared.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/img/Charly_Bliss.jpg&#34; alt=&#34;CharlyBliss&#34;&gt;&lt;/p&gt;
+&lt;p&gt;In order to do so, I needed two things: a song lyrics dataset and a map of english vocabulary and emotion. There are a lot of great music datasets out there, including the very popular &lt;a href=&#34;http://millionsongdataset.com/&#34;&gt;Million Songs Dataset&lt;/a&gt;, but for my purposes, I was only interested in the artist, song year, song lyrics, and approximate genre. A &lt;a href=&#34;https://www.kaggle.com/gyani95/380000-lyrics-from-metrolyrics&#34;&gt;dataset&lt;/a&gt; I pulled from Kaggle had this exact data for 380,000 songs, with the lyrics pulled from Metrolyrics. They had also sorted the songs into twelve genres including &amp;lsquo;Pop&amp;rsquo;, &amp;lsquo;Hip-Hop&amp;rsquo;, &amp;lsquo;Rock&amp;rsquo;, &amp;lsquo;Metal&amp;rsquo;, and &amp;lsquo;Country&amp;rsquo;.&lt;/p&gt;
+&lt;p&gt;For the second part of my data requirements, I used the NRC Emotion Lexicon. This is a list of English words and their associations with eight basic emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and two sentiments (negative and positive). These were manually categorized by crowdsourcing done by Saif Mohammad and Peter Turney. A lot of these categories overlap, so a word can show up in three categories like &amp;ldquo;negative&amp;rdquo;, &amp;ldquo;anger&amp;rdquo; and &amp;ldquo;disgust.&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;After creating the emotional words dictionaries, I needed to clean the lyrics in my dataset. I removed any whitespace or any character that wasn&amp;rsquo;t a standard alpha-numeric character. This was a problem with the contraction &amp;ldquo;I&amp;rsquo;ll&amp;rdquo; since within an apostrophe, it has a negative conotation, so I manually changed these to &amp;ldquo;I will.&amp;rdquo; Then, since decades felt like too wide of a time range, I grouped every song into 5 year time windows like 1970-1974, 1975-1979, and so on. At this point, I wanted to take my analysis in two directions, so I wrote a script to categorize the lyrics at an artist level, and another to categorize them at a genre level.&lt;/p&gt;
+&lt;h3 id=&#34;genre-level-lyric-emotions&#34;&gt;Genre-Level Lyric Emotions&lt;/h3&gt;
+&lt;p&gt;To start at a genre-level, I calculated the total proportion of words for each genre during each half-decade that represented each emotion. Plotting them all in a heatmap next to each other, we&amp;rsquo;re able to track how emotions have changed relative to time and each other. My first observation is that there seems to be a general shift to fewer positive lyrics over the last 50 years. This is most obviously seen in the Pop and R&amp;amp;B genres. This makes sense when you consider that the most commonly used positive lyrics are &amp;ldquo;love&amp;rdquo;, &amp;ldquo;baby&amp;rdquo; and &amp;ldquo;sweet,&amp;rdquo; which correspond pretty well to stereotypical hippie culture.&lt;/p&gt;
+
+
+&lt;div id=&#34;/plotly/positive-genre.json&#34; class=&#34;plotly&#34; style=&#34;height:600px&#34;&gt;&lt;/div&gt;
+&lt;script&gt;
+Plotly.d3.json(&#34;/plotly/positive-genre.json&#34;, function(err, fig) {
+    Plotly.plot(&#39;\/plotly\/positive-genre.json&#39;, fig.data, fig.layout, {responsive: true});
+});
+&lt;/script&gt;
+&lt;p&gt;On the flip side, we can also take a look at how negative lyrics have been distributed over time. Unlike the positive word distribution, negative words are dominated by a single category: Metal. Since 1980, Metal has around a 12% negative word rate, with the next closest genre being Hip-Hop at 7.5%. The types of negative words these two genres are using are also quite different. The most common negative Metal words are &amp;ldquo;pain&amp;rdquo;, &amp;ldquo;hate&amp;rdquo;, and &amp;ldquo;death&amp;rdquo;, whereas the most common negative Hip-Hop words are &amp;ldquo;shit&amp;rdquo;, &amp;ldquo;ass&amp;rdquo; and &amp;ldquo;hit.&amp;rdquo;&lt;/p&gt;
+
+
+&lt;div id=&#34;/plotly/negative-genre.json&#34; class=&#34;plotly&#34; style=&#34;height:600px&#34;&gt;&lt;/div&gt;
+&lt;script&gt;
+Plotly.d3.json(&#34;/plotly/negative-genre.json&#34;, function(err, fig) {
+    Plotly.plot(&#39;\/plotly\/negative-genre.json&#39;, fig.data, fig.layout, {responsive: true});
+});
+&lt;/script&gt;
+&lt;p&gt;Now that we&amp;rsquo;ve noticed some trends on a macro-level, let&amp;rsquo;s take the level of granularity down to the artist, as we focus in on Pop, Metal and Hip-Hop.&lt;/p&gt;
 &lt;h3 id=&#34;pop-metal-and-hip-hop-emotions&#34;&gt;Pop, Metal and Hip Hop Emotions&lt;/h3&gt;
+&lt;p&gt;We know that music genres are full of variety, which, as another school project of mine examined, can lead to some grey area when trying to define genres. In the following 3D scatter plot, I&amp;rsquo;ve tried to map the amount of positive, negative and angry words for a large sample of artists from Pop, Metal and Hip-Hop. We know that pop music can cover a wide-range of emotion, but how do they compare to rappers when it comes to emotion? It turns out that even the most negative and angry pop singers like Avril Lavigne, are barely overlapping the most positive and least angry rappers like Chamillionaire and Drake.&lt;/p&gt;
+&lt;p&gt;Similarly, Chief Keef, the single most negative and angry rapper in this database would hardly crack the top half of negative lyrical emotions when it comes to Metal music. Chief Keef has about 5.5% positive lyrics, 9% negative and 12% angry, while Cannibal Corpse, one of the most negative and angry Metal bands has a similar amount of postive lyrics while maintaining an 11% angry lyric rate and whopping 22% negative lyric rate.&lt;/p&gt;
 
 
 &lt;div id=&#34;/plotly/3dLyricScatter.json&#34; class=&#34;plotly&#34; style=&#34;height:600px&#34;&gt;&lt;/div&gt;
@@ -30,24 +58,8 @@ Plotly.d3.json(&#34;/plotly/3dLyricScatter.json&#34;, function(err, fig) {
     Plotly.plot(&#39;\/plotly\/3dLyricScatter.json&#39;, fig.data, fig.layout, {responsive: true});
 });
 &lt;/script&gt;
-&lt;h3 id=&#34;rock-music-emotions&#34;&gt;Rock Music Emotions&lt;/h3&gt;
-
-
-&lt;div id=&#34;/plotly/3dRockLyricScatter.json&#34; class=&#34;plotly&#34; style=&#34;height:600px&#34;&gt;&lt;/div&gt;
-&lt;script&gt;
-Plotly.d3.json(&#34;/plotly/3dRockLyricScatter.json&#34;, function(err, fig) {
-    Plotly.plot(&#39;\/plotly\/3dRockLyricScatter.json&#39;, fig.data, fig.layout, {responsive: true});
-});
-&lt;/script&gt;
-&lt;h3 id=&#34;rap-music-emotions&#34;&gt;Rap Music Emotions&lt;/h3&gt;
-
-
-&lt;div id=&#34;/plotly/3dRapLyricScatter.json&#34; class=&#34;plotly&#34; style=&#34;height:600px&#34;&gt;&lt;/div&gt;
-&lt;script&gt;
-Plotly.d3.json(&#34;/plotly/3dRapLyricScatter.json&#34;, function(err, fig) {
-    Plotly.plot(&#39;\/plotly\/3dRapLyricScatter.json&#39;, fig.data, fig.layout, {responsive: true});
-});
-&lt;/script&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;!-- raw HTML omitted --&gt;
 </description>
     </item>
     
