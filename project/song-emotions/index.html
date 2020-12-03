@@ -523,10 +523,12 @@
 <p>A lot of these musical differences could stem from the sound evolution that came from inventions like the electric guitar or drum machine, but I sought to quantify them in the lyrics themselves. There&rsquo;s a list of stereotypes that many music fans intuitively know for each genre. For instance, Hip-Hop is angrier than Pop, which is happier than Country, which is sadder than Rock. A lot of these stereotypes stem from the sound and media portrayals, but I wanted to quantify these attributes by categorizing an artist&rsquo;s lyrics, to see how often lyrics conveying a certain emotion appeared.</p>
 <p><img src="/img/Charly_Bliss.jpg" alt="CharlyBliss"></p>
 <p>In order to do so, I needed two things: a song lyrics dataset and a map of english vocabulary and emotion. There are a lot of great music datasets out there, including the very popular <a href="http://millionsongdataset.com/">Million Songs Dataset</a>, but for my purposes, I was only interested in the artist, song year, song lyrics, and approximate genre. A <a href="https://www.kaggle.com/gyani95/380000-lyrics-from-metrolyrics">dataset</a> I pulled from Kaggle had this exact data for 380,000 songs, with the lyrics pulled from Metrolyrics. They had also sorted the songs into twelve genres including &lsquo;Pop&rsquo;, &lsquo;Hip-Hop&rsquo;, &lsquo;Rock&rsquo;, &lsquo;Metal&rsquo;, and &lsquo;Country&rsquo;.</p>
-<p>For the second part of my data requirements, I used the NRC Emotion Lexicon. This is a list of English words and their associations with eight basic emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and two sentiments (negative and positive). These were manually categorized by crowdsourcing done by Saif Mohammad and Peter Turney. A lot of these categories overlap, so a word can show up in three categories like &ldquo;negative&rdquo;, &ldquo;anger&rdquo; and &ldquo;disgust.&rdquo;</p>
-<p>After creating the emotional words dictionaries, I needed to clean the lyrics in my dataset. I removed any whitespace or any character that wasn&rsquo;t a standard alpha-numeric character. This was a problem with the contraction &ldquo;I&rsquo;ll&rdquo; since within an apostrophe, it has a negative conotation, so I manually changed these to &ldquo;I will.&rdquo; Then, since decades felt like too wide of a time range, I grouped every song into 5 year time windows like 1970-1974, 1975-1979, and so on. At this point, I wanted to take my analysis in two directions, so I wrote a script to categorize the lyrics at an artist level, and another to categorize them at a genre level.</p>
+<p>For the second part of my data requirements, I used the NRC Emotion Lexicon. This is a list of English words and their associations with eight basic emotions (anger, fear, anticipation, trust, surprise, sadness, joy, and disgust) and two sentiments (negative and positive). These were manually categorized with crowdsourcing done by Saif Mohammad and Peter Turney. A lot of these categories overlap, so a word can show up in three categories like &ldquo;negative&rdquo;, &ldquo;anger&rdquo; and &ldquo;disgust.&rdquo;</p>
+<p>After creating the emotional words dictionaries, I needed to clean the lyrics in my dataset. I removed any whitespace or any character that wasn&rsquo;t a standard alpha-numeric character. This was a problem with the contraction &ldquo;I&rsquo;ll&rdquo; since within an apostrophe, it has a negative connotation, so I manually changed these to &ldquo;I will.&rdquo; Here&rsquo;s an example of how the lyrics looked pre and post-cleaning.</p>
+<p><img src="/img/scrubbed-lyrics.png" alt="ScrubbedLyrics"></p>
+<p>After the lyrics were cleaned, I wanted to shrink the time range because decades felt like too long. So I grouped every song into 5 year time windows like 1970-1974, 1975-1979, and so on. At this point, I wanted to take my analysis in two directions, so I wrote a script to categorize the lyrics at a genre level, and another to categorize them at an artist level.</p>
 <h3 id="genre-level-lyric-emotions">Genre-Level Lyric Emotions</h3>
-<p>To start at a genre-level, I calculated the total proportion of words for each genre during each half-decade that represented each emotion. Plotting them all in a heatmap next to each other, we&rsquo;re able to track how emotions have changed relative to time and each other. My first observation is that there seems to be a general shift to fewer positive lyrics over the last 50 years. This is most obviously seen in the Pop and R&amp;B genres. This makes sense when you consider that the most commonly used positive lyrics are &ldquo;love&rdquo;, &ldquo;baby&rdquo; and &ldquo;sweet,&rdquo; which correspond pretty well to stereotypical hippie culture.</p>
+<p>To start at a genre-level, I calculated the total proportion of words for each genre during each half-decade that represented each emotion. Plotting them all in a heatmap next to each other, we&rsquo;re able to track how emotions have changed relative to time and each other. My first observation is that there seems to be a general shift to fewer positive lyrics over the last 50 years. This is most obviously seen in the Pop and R&amp;B genres. This makes sense when you consider that the most commonly used positive lyrics are &ldquo;love&rdquo;, &ldquo;baby&rdquo; and &ldquo;sweet,&rdquo; which correspond pretty well to the stereotypical hippie culture of the 70s.</p>
 
 
 <div id="/plotly/positive-genre.json" class="plotly" style="height:600px"></div>
@@ -535,7 +537,7 @@ Plotly.d3.json("/plotly/positive-genre.json", function(err, fig) {
     Plotly.plot('\/plotly\/positive-genre.json', fig.data, fig.layout, {responsive: true});
 });
 </script>
-<p>On the flip side, we can also take a look at how negative lyrics have been distributed over time. Unlike the positive word distribution, negative words are dominated by a single category: Metal. Since 1980, Metal has around a 12% negative word rate, with the next closest genre being Hip-Hop at 7.5%. The types of negative words these two genres are using are also quite different. The most common negative Metal words are &ldquo;pain&rdquo;, &ldquo;hate&rdquo;, and &ldquo;death&rdquo;, whereas the most common negative Hip-Hop words are &ldquo;shit&rdquo;, &ldquo;ass&rdquo; and &ldquo;hit.&rdquo;</p>
+<p>On the flip side, we can also take a look at how negative lyrics have been distributed over time. Unlike the positive word distribution, negative words are dominated by a single category: Metal. Since 1980, Metal has had around a 12% negative word rate, with the next closest genre being Hip-Hop at 7.5%. The types of negative words these two genres are using are also quite different. The most common negative lyrics in Metal are &ldquo;pain&rdquo;, &ldquo;hate&rdquo;, and &ldquo;death&rdquo;, whereas the most common negative Hip-Hop lyrics are &ldquo;shit&rdquo;, &ldquo;ass&rdquo; and &ldquo;hit.&rdquo;</p>
 
 
 <div id="/plotly/negative-genre.json" class="plotly" style="height:600px"></div>
@@ -544,20 +546,47 @@ Plotly.d3.json("/plotly/negative-genre.json", function(err, fig) {
     Plotly.plot('\/plotly\/negative-genre.json', fig.data, fig.layout, {responsive: true});
 });
 </script>
-<p>Now that we&rsquo;ve noticed some trends on a macro-level, let&rsquo;s take the level of granularity down to the artist, as we focus in on Pop, Metal and Hip-Hop.</p>
+<p>Now that we&rsquo;ve noticed some trends on a macro-level, let&rsquo;s take the level of granularity down to the artist, as we focus on Pop, Metal and Hip-Hop.</p>
 <h3 id="pop-metal-and-hip-hop-emotions">Pop, Metal and Hip Hop Emotions</h3>
-<p>We know that music genres are full of variety, which, as another school project of mine examined, can lead to some grey area when trying to define genres. In the following 3D scatter plot, I&rsquo;ve tried to map the amount of positive, negative and angry words for a large sample of artists from Pop, Metal and Hip-Hop. We know that pop music can cover a wide-range of emotion, but how do they compare to rappers when it comes to emotion? It turns out that even the most negative and angry pop singers like Avril Lavigne, are barely overlapping the most positive and least angry rappers like Chamillionaire and Drake.</p>
-<p>Similarly, Chief Keef, the single most negative and angry rapper in this database would hardly crack the top half of negative lyrical emotions when it comes to Metal music. Chief Keef has about 5.5% positive lyrics, 9% negative and 12% angry, while Cannibal Corpse, one of the most negative and angry Metal bands has a similar amount of postive lyrics while maintaining an 11% angry lyric rate and whopping 22% negative lyric rate.</p>
+<p>We know that music genres are full of variety, which, as another school project of mine examined, can lead to a lot of grey areas between genres. In the following 3D scatter plot, I&rsquo;ve tried to map the amount of positive, negative and angry words for a large sample of artists from Pop, Metal and Hip-Hop. We know that pop music can cover a wide-range of emotions on its own, but how does it compare to Hip-Hop? It turns out that even the most negative and angry pop singers like Avril Lavigne have a modest 6.2% positive rate and 7.5% negative rate. These numbers are comparable to the most positive and least angry rappers like Chamillionaire and Drake.</p>
+<p>Similarly, Chief Keef, the single most negative and angry rapper in this database, would hardly crack the top half of negative lyrical emotions when it comes to Metal music. Chief Keef has about 5.5% positive lyrics, 9% negative and 12% angry, while Cannibal Corpse, one of the most negative and angry Metal bands has a similar amount of positive lyrics while maintaining an 11% angry lyric rate and whopping 22% negative lyric rate.</p>
 
 
-<div id="/plotly/3dLyricScatter.json" class="plotly" style="height:600px"></div>
+<div id="/plotly/3dLyricScatter.json" class="plotly" style="height:1000px"></div>
 <script>
 Plotly.d3.json("/plotly/3dLyricScatter.json", function(err, fig) {
     Plotly.plot('\/plotly\/3dLyricScatter.json', fig.data, fig.layout, {responsive: true});
 });
 </script>
-<!-- raw HTML omitted -->
-<!-- raw HTML omitted -->
+<p>Although it&rsquo;s interesting to compare lyrics across genres like this, let&rsquo;s take a closer look at Rock, which is well known for having many different sub-genres.</p>
+<h3 id="rock-music-emotions">Rock Music Emotions</h3>
+<p>In the following scatter, you&rsquo;ll see the distribution of rock bands by positive and negative emotion, with the size of the bubble representing how many lyrics were available for the artist. There are a couple outliers on every end of this plot, and a whole bunch of artists meeting in the middle.</p>
+<p>First, at the extreme positive end, we have Christian Rock singers like Chris Tomlin. He has a 25% positive rate vs only an 8% negative rate. His most used negative words &ldquo;cross&rdquo; and &ldquo;sin&rdquo; are also as you&rsquo;d expect from a Christian singer.</p>
+<p>On the negative side, you have GG Allin, the largest bubble on top of the graph. GG is an infamous punk rock musician who&rsquo;s mostly famous for his extreme antics like deficating on-stage, and constant arrests. It&rsquo;s no suprise we find him with a three times higher negative than positive lyrical sentiment.</p>
+<p>Finally, there also seems to be a cluster away from everyone else and much closer to the origin. After looking at a few band names from here like Die Toten Hosen and Echt, it&rsquo;s clear that these represent non-English speaking artists. A future iteration of this project could create emotion dictionaries beyond the English language.</p>
+
+
+<div id="/plotly/2dRockLyricScatter.json" class="plotly" style="height:600px"></div>
+<script>
+Plotly.d3.json("/plotly/2dRockLyricScatter.json", function(err, fig) {
+    Plotly.plot('\/plotly\/2dRockLyricScatter.json', fig.data, fig.layout, {responsive: true});
+});
+</script>
+<p>It can be fun to look at the extremes in these charts, but even artists right in the middle of the cluster can have ebbs and flows to their lyrical emotions over the course of their career. To illustrate, I created a heatmap for the emotions of David Bowie songs through time.</p>
+
+
+<div id="/plotly/david-bowie-heatmap.json" class="plotly" style="height:600px"></div>
+<script>
+Plotly.d3.json("/plotly/david-bowie-heatmap.json", function(err, fig) {
+    Plotly.plot('\/plotly\/david-bowie-heatmap.json', fig.data, fig.layout, {responsive: true});
+});
+</script>
+<p>There&rsquo;s a small gap in this data in the 1990s, but the first observation that jumps out to me is how positive and joyful his music was in the late 80s and early 2000s. This could be the result of a rock icon in the latter half of his career, able to star in movies, voice video game characters, and bring anyone they want into the studio.</p>
+<p>David Bowie passed away of liver cancer two days before he released his final album Blackstar in 2016. He kept his diagnosis secret for 18 months while he worked on his off-Broadway musical and recorded this farewell album. Given these circumstances, I find it notable that the surprise, anger, sadness and fear all increased, while his trust was decreased for this album.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>Most of us know which music energizes us, and which slows us down or helps us focus. We might have even created Spotify playlists for these situations. But it&rsquo;s not just the tempo and instruments that contribute to this energy, we can find these emotions intentionally written into the songs. Properly quantifying this helps us compare artists across genres, artists within genres, and even artists against themselves.</p>
+<p>People should use this analysis not only to track what kind of music they like, but also to find new music that suits their style. Do you like the energy of Tupac? Maybe you&rsquo;ll like French Montana. Are the Beach Boys more your speed? Try Chuck Berry.</p>
+<p>Thank you to everyone that helped me with this project, including Hilal Kasikci and Andrew Brandt. Thanks to <a href="https://pudding.cool/author/matt-daniels/">Matt Daniels</a> at <a href="https://pudding.cool/">The Pudding</a>, whose article on <a href="https://pudding.cool/2018/08/emo-rap/">emo rap lyrics</a> inspired this project. If you&rsquo;d like to learn more about this project, or give feedback, feel free to <a href="mailto:teddavidcarlson@gmail.com">email</a> me or follow me on <a href="https://linkedin.com/in/ted-david-carlson">LinkedIn</a>.</p>
 
     </div>
 
