@@ -1,760 +1,620 @@
 <!DOCTYPE html>
-<html lang="en-us">
-
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oscars So White (Again)</title>
+<meta name="description" content="A data analysis of diversity in Academy Award nominations and winners, with interactive D3 timelines for every acting and directing category.">
+<meta name="theme-color" content="#fc6f5c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css?family=Lato:400,700,900|Open+Sans&display=swap" rel="stylesheet">
+<script src="js/d3.v7.min.js"></script>
+<style>
+  :root{
+    --accent:#fc6f5c;
+    --accent-dark:#fb432a;
+    --gold:#e8b923;
+    --text:#212529;
+    --text-muted:#6c757d;
+    --bg:#fff;
+    --bg-alt:#f7f7f7;
+    --border:#dee2e6;
+    --card-bg:#fff;
+    --badge-bg:rgba(0,0,0,.05);
+  }
+  body.dark{
+    --text:#f8f8f2;
+    --text-muted:rgba(248,248,242,.65);
+    --bg:#272935;
+    --bg-alt:#23252f;
+    --border:#3a3c4a;
+    --card-bg:#2f313e;
+    --badge-bg:rgba(255,255,255,.08);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Open Sans',sans-serif;
+    background-color:var(--bg);
+    color:var(--text);
+    transition:background-color .3s ease,color .3s ease;
+  }
+  h1,h2,h3,h4,h5,h6,.navbar-brand,.nav-link,.btn{font-family:'Lato',sans-serif;}
+  a{color:var(--accent);text-decoration:none;}
+  p{line-height:1.75;}
+  .container{
+    max-width:1100px;
+    margin:0 auto;
+    padding:0 20px;
+  }
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Source Themes Academia 4.3.1">
-  <meta name="generator" content="Hugo 0.72.0" />
+  /* Navbar */
+  .navbar{
+    position:fixed;
+    top:0;left:0;right:0;
+    min-height:70px;
+    background-color:var(--bg);
+    box-shadow:0 1px 2px rgba(0,0,0,.08);
+    z-index:100;
+  }
+  .navbar .container{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    min-height:70px;
+  }
+  .navbar-brand{
+    font-weight:700;
+    font-size:1.2em;
+    color:var(--text);
+    white-space:nowrap;
+  }
+  .navbar-nav{
+    display:flex;
+    align-items:center;
+    gap:.25rem;
+  }
+  .nav-link{
+    padding:.5rem .75rem;
+    font-size:16px;
+    color:var(--text);
+    white-space:nowrap;
+  }
+  .nav-link:hover{color:var(--accent);}
+  .dark-toggle{
+    cursor:pointer;
+    background:none;
+    border:none;
+    display:flex;
+    align-items:center;
+    color:var(--text);
+    padding:.5rem .5rem .5rem .75rem;
+  }
+  .dark-toggle:hover{color:var(--accent);}
 
-  
+  /* Header / banner (mirrors the site's "split-header" project layout) */
+  .project-header{
+    padding:calc(70px + 50px) 0 10px;
+  }
+  .banner{
+    width:100%;
+    aspect-ratio:2.2 / 1;
+    background:linear-gradient(135deg,var(--accent) 0%,var(--accent-dark) 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:6rem;
+    margin-bottom:2rem;
+  }
+  .project-title{
+    font-size:2.4rem;
+    font-weight:700;
+    margin:0 0 .5rem;
+  }
+  .article-metadata{
+    font-size:14px;
+    letter-spacing:.03em;
+    color:var(--text-muted);
+    margin-bottom:20px;
+  }
+  .btn-links{margin-bottom:1rem;}
 
-  
-  
-  
-  
-  
-    
-    
-    
-  
-  
+  /* Buttons */
+  .btn{
+    display:inline-block;
+    font-weight:400;
+    text-align:center;
+    padding:.5rem 1.25rem;
+    font-size:1.05rem;
+    border:1px solid transparent;
+    border-radius:0;
+    cursor:pointer;
+    transition:color .15s ease,background-color .15s ease,border-color .15s ease;
+  }
+  .btn-primary{
+    background-color:var(--accent);
+    border-color:var(--accent);
+    color:#fff;
+  }
+  .btn-primary:hover{background-color:var(--accent-dark);border-color:var(--accent-dark);color:#fff;}
+  .btn-outline-primary{
+    color:var(--accent);
+    border-color:var(--accent);
+    background:transparent;
+  }
+  .btn-outline-primary:hover{background-color:var(--accent);color:#fff;}
 
-  <meta name="author" content="Ted Carlson">
+  /* Article body */
+  .article-container{padding:20px 0 10px;}
+  .intro-text,
+  .category-text{
+    max-width:740px;
+    margin:0 auto;
+    color:var(--text-muted);
+  }
+  .intro-text{margin-bottom:50px;}
 
-  
-  
-  
-    
-  
-  <meta name="description" content="Searching for gender parody in Academy Award nominations and winners">
+  .category{margin-bottom:64px;}
+  .category:last-of-type{margin-bottom:0;}
+  .category-title{
+    font-size:1.3rem;
+    font-weight:700;
+    color:var(--text);
+    margin:0 0 1rem;
+    padding-left:14px;
+    border-left:4px solid var(--accent);
+  }
+  .category-text p{margin:0 0 1rem;}
 
-  
-  <link rel="alternate" hreflang="en-us" href="/project/oscars-so-white/">
+  .chart-card{
+    background-color:var(--card-bg);
+    border:1px solid var(--border);
+    padding:20px 20px 10px;
+    margin-top:1.75rem;
+  }
+  .chart-legend{
+    display:flex;
+    gap:24px;
+    flex-wrap:wrap;
+    justify-content:center;
+    font-size:.85rem;
+    color:var(--text-muted);
+    margin-bottom:8px;
+  }
+  .chart-legend span{display:inline-flex;align-items:center;gap:6px;}
+  .legend-dot{width:10px;height:10px;border-radius:50%;display:inline-block;}
+  .legend-dot.winner{background:var(--gold);border:1px solid #b8860b;}
+  .legend-dot.nominee{background:var(--accent);}
+  .chart{width:100%;}
+  .chart svg{display:block;width:100%;height:auto;}
+  .chart .axis path,
+  .chart .axis line{stroke:var(--border);}
+  .chart .axis text{fill:var(--text-muted);font-size:11px;font-family:'Open Sans',sans-serif;}
+  .dot-nominee{fill:var(--accent);opacity:.85;}
+  .dot-winner{fill:var(--gold);stroke:#8a6d00;stroke-width:1px;}
+  .dot-nominee:hover,.dot-winner:hover{opacity:1;cursor:pointer;}
 
-  
+  .chart-tooltip{
+    position:fixed;
+    pointer-events:none;
+    background:var(--text);
+    color:var(--bg);
+    padding:8px 12px;
+    font-size:.8rem;
+    line-height:1.5;
+    border-radius:3px;
+    box-shadow:0 4px 12px rgba(0,0,0,.2);
+    opacity:0;
+    transition:opacity .12s ease;
+    z-index:200;
+    max-width:240px;
+  }
+  .chart-tooltip strong{display:block;}
 
+  details.notes{
+    max-width:740px;
+    margin:60px auto 0;
+    border-top:1px solid var(--border);
+    padding-top:20px;
+    color:var(--text-muted);
+    font-size:.9rem;
+  }
+  details.notes summary{
+    cursor:pointer;
+    font-weight:700;
+    color:var(--text);
+    font-family:'Lato',sans-serif;
+    margin-bottom:10px;
+  }
+  details.notes p{margin:0 0 10px;}
 
-  
+  /* Tags */
+  .article-tags{
+    max-width:740px;
+    margin:50px auto 0;
+  }
+  .badge{
+    display:inline-block;
+    border-radius:3px;
+    padding:5px 10px;
+    margin:0 8px 8px 0;
+    font-size:.75rem;
+    font-weight:400;
+    background:var(--badge-bg);
+    color:var(--text-muted);
+  }
 
-  
-  
-  
-  <meta name="theme-color" content="#fc6f5c">
-  
+  /* Author card */
+  .author-card{
+    max-width:740px;
+    margin:1rem auto 0;
+    padding-top:1.5rem;
+    border-top:1px solid var(--border);
+  }
+  .author-card h5{
+    margin:0 0 .25rem;
+    font-weight:700;
+    font-size:1.05rem;
+  }
+  .author-card h6{
+    margin:0 0 .6rem;
+    font-weight:300;
+    font-size:.85rem;
+    color:var(--text-muted);
+  }
+  .author-card p{
+    color:var(--text-muted);
+    font-size:.9rem;
+    margin:0 0 .75rem;
+  }
+  ul.network-icon{
+    list-style:none;
+    padding:0;
+    margin:0;
+  }
+  .network-icon li{display:inline-block;margin-right:10px;}
+  .network-icon a{
+    height:36px;width:36px;line-height:36px;
+    display:block;
+    text-align:center;
+    border-radius:50%;
+    border:1px solid var(--border);
+    color:var(--text);
+    transition:.3s ease;
+  }
+  .network-icon a:hover{background:var(--accent);color:#fff;border-color:var(--accent);}
 
-  
-  
-  
-  
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css" integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+  /* Footer */
+  .site-footer{
+    border-top:2px solid var(--border);
+    padding:30px 0;
+    margin-top:70px;
+    background-color:var(--bg);
+  }
+  .footer-inner{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
+    font-size:.9rem;
+    color:var(--text-muted);
+  }
+  .footer-inner a{color:var(--text-muted);}
+  .footer-inner a:hover{color:var(--accent);}
 
-    
-    
-    
-      
-    
-    
-      
-      
-        
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css" crossorigin="anonymous" title="hl-light">
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
-        
-      
-    
-
-    
-
-    
-
-  
-
-  
-  
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Open+Sans|Roboto+Mono&display=swap">
-  
-
-  
-  
-  
-  <link rel="stylesheet" href="/css/academia.min.4e3b2f408b00c06405993e164c128cb2.css">
-
-  
-
-  
-  
-    <script>
-      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-      ga('create', 'UA-157449578-3', 'auto');
-      
-      ga('require', 'eventTracker');
-      ga('require', 'outboundLinkTracker');
-      ga('require', 'urlChangeTracker');
-      ga('send', 'pageview');
-    </script>
-    <script async src="//www.google-analytics.com/analytics.js"></script>
-    
-    <script async src="https://cdnjs.cloudflare.com/ajax/libs/autotrack/2.4.1/autotrack.js" integrity="sha512-HUmooslVKj4m6OBu0OgzjXXr+QuFYy/k7eLI5jdeEy/F4RSgMn6XRWRGkFi5IFaFgy7uFTkegp3Z0XnJf3Jq+g==" crossorigin="anonymous"></script>
-    
-  
-  
-
-  
-
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="icon" type="image/png" href="/img/icon.png">
-  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
-
-  <link rel="canonical" href="/project/oscars-so-white/">
-
-  
-  
-  
-  
-    
-  
-  <meta property="twitter:card" content="summary_large_image">
-  
-  <meta property="og:site_name" content="Ted Carlson&#39;s Data Blog">
-  <meta property="og:url" content="/project/oscars-so-white/">
-  <meta property="og:title" content="Oscars So White (Again) | Ted Carlson&#39;s Data Blog">
-  <meta property="og:description" content="Searching for gender parody in Academy Award nominations and winners"><meta property="og:image" content="/project/oscars-so-white/featured.jpg">
-  <meta property="twitter:image" content="/project/oscars-so-white/featured.jpg"><meta property="og:locale" content="en-us">
-  
-  <meta property="article:published_time" content="2020-02-04T00:00:00&#43;00:00">
-  
-  <meta property="article:modified_time" content="2020-02-04T00:00:00&#43;00:00">
-  
-
-  
-
-
-  
-
-
-
-
-
-  <title>Oscars So White (Again) | Ted Carlson&#39;s Data Blog</title>
-
+  @media (max-width:640px){
+    .navbar .container{padding:0 1rem;}
+    .nav-link{padding:.5rem .4rem;font-size:13px;}
+    .navbar-brand{font-size:1rem;}
+    .navbar-nav{gap:0;}
+    .project-title{font-size:1.8rem;}
+    .banner{font-size:4rem;}
+  }
+</style>
 </head>
+<body>
 
-
-<body id="top" data-spy="scroll" data-target="#TableOfContents" data-offset="71" >
-
-  <aside class="search-results" id="search">
+<nav class="navbar" id="navbar-main">
   <div class="container">
-    <section class="search-header">
-
-      <div class="row no-gutters justify-content-between mb-3">
-        <div class="col-6">
-          <h1>Search</h1>
-        </div>
-        <div class="col-6 col-search-close">
-          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
-        </div>
-      </div>
-
-      <div id="search-box">
-        
-        
-        
-      </div>
-
-    </section>
-    <section class="section-search-results">
-
-      <div id="search-hits">
-        
-      </div>
-
-    </section>
-  </div>
-</aside>
-
-
-  
-<nav class="navbar navbar-light fixed-top navbar-expand-lg py-0" id="navbar-main">
-  <div class="container">
-
-    
-      <a class="navbar-brand" href="/">Ted Carlson&#39;s Data Blog</a>
-      
-      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"><span><i class="fas fa-bars"></i></span>
+    <a class="navbar-brand" href="#top">Oscars So White</a>
+    <div class="navbar-nav">
+      <a class="nav-link" href="#top">Home</a>
+      <a class="nav-link" href="#analysis">Analysis</a>
+      <a class="nav-link" href="https://github.com/tce9232/oscars-so-white" target="_blank" rel="noopener">GitHub</a>
+      <button class="dark-toggle js-dark-toggle" aria-label="Toggle dark mode">
+        <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
       </button>
-      
-
-    
-    <div class="collapse navbar-collapse" id="navbar">
-
-      
-      
-      <ul class="navbar-nav ml-auto">
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#about"><span>Home</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#projects"><span>Projects</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/#contact"><span>Contact</span></a>
-        </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-
-        <li class="nav-item">
-          <a class="nav-link " href="/files/Resume.pdf"><span>Resume</span></a>
-        </li>
-
-        
-        
-
-      
-
-        
-
-        
-
-        
-
-        
-        <li class="nav-item">
-          <a class="nav-link js-dark-toggle" href="#"><i class="fas fa-moon" aria-hidden="true"></i></a>
-        </li>
-        
-
-      </ul>
-
     </div>
   </div>
 </nav>
 
+<span id="top"></span>
 
-  <article class="article article-project py-5" itemscope itemtype="http://schema.org/Article">
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="container split-header">
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-        <img class="img-fluid w-100" src="/project/oscars-so-white/featured_hub1e9ad8922b6a5861595b1f94efbadc9_19905_680x500_fill_q90_lanczos_smart1.jpg" itemprop="image" alt="">
-        
-    </div>
-    <div class="col-lg-8">
-      <h1 itemprop="name">Oscars So White (Again)</h1>
-
-      
-
-      
-
-
-
-<meta content="2020-02-04 00:00:00 &#43;0000 UTC" itemprop="datePublished">
-<meta content="2020-02-04 00:00:00 &#43;0000 UTC" itemprop="dateModified">
-
-<div class="article-metadata">
-
-  
-  
-
-  
-  <span class="article-date">
-    
-    
-      
-    
-    <time>Feb 4, 2020</time>
-  </span>
-  
-
-  
-
-  
-
-  
-  
-
-  
-  
-
-  
-    
-<div class="share-box" aria-hidden="true">
-  <ul class="share">
-    
-      
-      
-      
-        
-      
-      
-      
-      <li>
-        <a href="https://twitter.com/intent/tweet?url=/project/oscars-so-white/&amp;text=Oscars%20So%20White%20%28Again%29" target="_blank" rel="noopener" class="share-btn-twitter">
-          <i class="fab fa-twitter"></i>
-        </a>
-      </li>
-    
-      
-      
-      
-        
-      
-      
-      
-      <li>
-        <a href="https://www.facebook.com/sharer.php?u=/project/oscars-so-white/&amp;t=Oscars%20So%20White%20%28Again%29" target="_blank" rel="noopener" class="share-btn-facebook">
-          <i class="fab fa-facebook-f"></i>
-        </a>
-      </li>
-    
-      
-      
-      
-        
-      
-      
-      
-      <li>
-        <a href="mailto:?subject=Oscars%20So%20White%20%28Again%29&amp;body=/project/oscars-so-white/" target="_blank" rel="noopener" class="share-btn-email">
-          <i class="fas fa-envelope"></i>
-        </a>
-      </li>
-    
-      
-      
-      
-        
-      
-      
-      
-      <li>
-        <a href="https://www.linkedin.com/shareArticle?url=/project/oscars-so-white/&amp;title=Oscars%20So%20White%20%28Again%29" target="_blank" rel="noopener" class="share-btn-linkedin">
-          <i class="fab fa-linkedin-in"></i>
-        </a>
-      </li>
-    
-      
-      
-      
-        
-      
-      
-      
-      <li>
-        <a href="https://web.whatsapp.com/send?text=Oscars%20So%20White%20%28Again%29%20/project/oscars-so-white/" target="_blank" rel="noopener" class="share-btn-whatsapp">
-          <i class="fab fa-whatsapp"></i>
-        </a>
-      </li>
-    
-      
-      
-      
-        
-      
-      
-      
-      <li>
-        <a href="https://service.weibo.com/share/share.php?url=/project/oscars-so-white/&amp;title=Oscars%20So%20White%20%28Again%29" target="_blank" rel="noopener" class="share-btn-weibo">
-          <i class="fab fa-weibo"></i>
-        </a>
-      </li>
-    
-  </ul>
-</div>
-
-
-  
-
-</div>
-
-      
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </div>
-    
-    </div>
-  </div>
-</div>
-
-  <div class="article-container">
-
-    <div class="article-style" itemprop="articleBody">
-      <div class="responsive-wrap">
-  <iframe src="article.html" frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-</div>
-
-    </div>
-
-    
-
-<div class="article-tags">
-  
-  <a class="badge badge-light" href="/tags/d3/">D3</a>
-  
-  <a class="badge badge-light" href="/tags/movies/">Movies</a>
-  
-</div>
-
-
-    
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-  
-  
-    
-  
-  
-  <div class="media author-card" itemscope itemtype="http://schema.org/Person">
-    
-
-    <div class="media-body">
-      <h5 class="card-title" itemprop="name"><a href="/">Ted Carlson</a></h5>
-      <h6 class="card-subtitle">Data Scientist</h6>
-      <p class="card-text" itemprop="description">My research interests include distributed robotics, mobile computing and programmable matter.</p>
-      <ul class="network-icon" aria-hidden="true">
-        
-          
-          
-          
-            
-          
-          
-          
-          
-          
-            
-          
-          <li>
-            <a itemprop="sameAs" href="/#contact" >
-              <i class="fas fa-envelope"></i>
-            </a>
-          </li>
-        
-          
-          
-          
-            
-          
-          
-          
-          
-          
-            
-          
-          <li>
-            <a itemprop="sameAs" href="https://www.linkedin.com/in/ted-david-carlson/" target="_blank" rel="noopener">
-              <i class="fab fa-linkedin"></i>
-            </a>
-          </li>
-        
-          
-          
-          
-            
-          
-          
-          
-          
-          
-            
-          
-          <li>
-            <a itemprop="sameAs" href="https://github.com/tce9232" target="_blank" rel="noopener">
-              <i class="fab fa-github"></i>
-            </a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-
-
-
-    
-    
-
-    
-    
-    
-
-    
-    
-    
-    </div>
-
-    
-    
-    
-    </div>
-  </div>
-</article>
-
-
-
-      
-
-    
-    
-
-    
-    
-    
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
-
-      
-
-      
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js" integrity="sha256-aYTdUrn6Ow1DDgh5JTc3aDGnnju48y/1c8s1dgkYPQ8=" crossorigin="anonymous"></script>
-        
-      
-
-      
-      
-    
-
-    
-    
-
-    
-    
-    
-
-    
-    
-    <script>hljs.initHighlightingOnLoad();</script>
-    
-
-    
-
-    
-    
-
-    
-
-    
-    
-
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    <script src="/js/academia.min.7276a6a3624de715a5c7f54c7c07696d.js"></script>
-
-    
-
-
-
-
-
-
-  
+<header class="project-header">
   <div class="container">
-    <footer class="site-footer">
-
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        
-        <p class="powered-by">
-          <a href="/privacy/">Privacy Policy</a>
-        </p>
-        
-        <p>
-          
-          Powered by
-          <a href="https://themefisher.com" target="_blank" rel="noopener">themefisher</a> for
-          <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
-        </p>
-      </div>
-      <div class="col-md-6">
-        <ul class="list-inline network-icon text-right">
-          
-          
-        </ul>
-      </div>
+    <div class="banner" aria-hidden="true">🎬</div>
+    <h1 class="project-title">Oscars So White (Again)</h1>
+    <div class="article-metadata">A data analysis of diversity in Academy Award nominations and winners &middot; 92 years of nominees</div>
+    <div class="btn-links">
+      <a class="btn btn-outline-primary" href="https://github.com/tce9232/oscars-so-white" target="_blank" rel="noopener">View Source on GitHub</a>
     </div>
+  </div>
+</header>
+
+<div class="container article-container" id="analysis">
+
+  <p class="intro-text">The Academy Awards have been under fire for under-representation in their top categories. Four years after #OscarsSoWhite first began trending, I dug into the data for every Oscar nominee and winner in the history of the award show. Each timeline below plots every nominee from that category's history by year. Dots above the line are non-white nominees (or, for the director gender chart, women); dots below the line are white nominees (or men). A gold dot means that nominee won the award. Hover any dot for the nominee's name, role, and film.</p>
+
+  <div class="category">
+    <div class="category-text">
+      <h3 class="category-title">Best Actor</h3>
+      <p>The first non-white nominee was actually a winner: Jose Ferrer took home the Oscar for <em>Cyrano de Bergerac</em> in 1950. But there are large stretches, like the 1970s, where there are hardly any non-white nominees at all, and only four separate years have more than one non-white nominee at a time.</p>
+      <p>I must note that although this chart treats white/non-white as a binary, it is, of course, more complicated than that. Jose Ferrer and Ben Kingsley are relatively white-passing, while fellow Best Actor winners such as Sidney Poitier and Denzel Washington are not &mdash; another factor to keep in mind when considering how historically inclusive (or not) the Academy has been.</p>
+    </div>
+    <div class="chart-card">
+      <div class="chart-legend">
+        <span><i class="legend-dot winner"></i> Winner</span>
+        <span><i class="legend-dot nominee"></i> Nominee</span>
+      </div>
+      <div id="chart-actor" class="chart"></div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-text">
+      <h3 class="category-title">Best Actress</h3>
+      <p>Racial discrimination is even more apparent in the Best Actress category. Only 17 non-white actresses have ever been nominated for this award, and only one has ever won &mdash; Halle Berry, for <em>Monster's Ball</em>. It's now been almost a decade since our last non-white nominee for Best Actress.</p>
+      <p>I'll note that although the term "actress" has fallen out of favor, I'm still using it here as a way to distinguish between gendered Oscar categories.</p>
+    </div>
+    <div class="chart-card">
+      <div class="chart-legend">
+        <span><i class="legend-dot winner"></i> Winner</span>
+        <span><i class="legend-dot nominee"></i> Nominee</span>
+      </div>
+      <div id="chart-actress" class="chart"></div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-text">
+      <h3 class="category-title">Best Supporting Actor</h3>
+      <p>In this category there are sometimes stretches where the nominations and awards seem almost proportionate, followed and preceded by stretches of almost zero recognition of actors of color. The entire 1960s and 1970s were nearly swept by white actors, while the 1980s to mid-2000s neared representation. But instead of continuing that trajectory, Barkhad Abdi in <em>Captain Phillips</em> is the only non-white supporting actor to be nominated since 2006.</p>
+    </div>
+    <div class="chart-card">
+      <div class="chart-legend">
+        <span><i class="legend-dot winner"></i> Winner</span>
+        <span><i class="legend-dot nominee"></i> Nominee</span>
+      </div>
+      <div id="chart-sactor" class="chart"></div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-text">
+      <h3 class="category-title">Best Supporting Actress</h3>
+      <p>This category sees a similar feast-or-famine phenomenon. From 1962 to 1989 there were only eight non-white nominees and no winners. But Supporting Actress also contains the best stretch for representation of any category: from 2006 to 2013 it had nine non-white nominations and four winners.</p>
+    </div>
+    <div class="chart-card">
+      <div class="chart-legend">
+        <span><i class="legend-dot winner"></i> Winner</span>
+        <span><i class="legend-dot nominee"></i> Nominee</span>
+      </div>
+      <div id="chart-sactress" class="chart"></div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-text">
+      <h3 class="category-title">Best Director</h3>
+      <p>Acting isn't the only award that goes to a single person &mdash; Best Director has been given out since the beginning of the show. Until the mid-2000s, this category looked the most bleak of any of them, with only seven non-white nominees and no winners in nearly 80 years. But after Ang Lee became the first non-white director to win, in 2005, six of the following seven Best Director awards went to non-white directors.</p>
+    </div>
+    <div class="chart-card">
+      <div class="chart-legend">
+        <span><i class="legend-dot winner"></i> Winner</span>
+        <span><i class="legend-dot nominee"></i> Nominee</span>
+      </div>
+      <div id="chart-director" class="chart"></div>
+    </div>
+  </div>
+
+  <div class="category">
+    <div class="category-text">
+      <h3 class="category-title">Best Director, by Gender</h3>
+      <p>Unlike the acting awards, Best Director isn't gendered &mdash; and broken down by gender, the results are striking. There have only been five total nominations for women since 1927, with a single win: Kathryn Bigelow, for <em>The Hurt Locker</em> in 2009.</p>
+    </div>
+    <div class="chart-card">
+      <div class="chart-legend">
+        <span><i class="legend-dot winner"></i> Winner</span>
+        <span><i class="legend-dot nominee"></i> Nominee</span>
+      </div>
+      <div id="chart-director-gender" class="chart"></div>
+    </div>
+  </div>
+
+  <p class="intro-text">It's not entirely clear how much of the blame for these biased nominations should fall on the Academy itself &mdash; of the top films of 2018, only 8% were directed by women, and nearly three-quarters of all characters in the top movies of 2014 were white. But the Academy isn't a neutral bystander either: a 2012 Los Angeles Times investigation found its voting members were 94% Caucasian, 77% men, and 86% older than 50. Four years after #OscarsSoWhite first trended, there have been exactly zero non-white Best Actress, Supporting Actress, or Supporting Actor nominees.</p>
+
+  <details class="notes">
+    <summary>Notes &amp; Citations</summary>
+    <p>Assumptions about the ethnicity of an actor were made using the National Names Database. This is not a perfect method &mdash; corrections are welcome via the GitHub repository linked above.</p>
+    <p>Inspiration for this analysis was taken from a Time Magazine story posted in 2016.</p>
+    <p>[1] "Study: Women Film Directors Saw Their Numbers Shrink in 2018," Gregg Kilday, The Hollywood Reporter.<br>
+    [2] "Out Of 30,000 Hollywood Film Characters, Here's How Many Weren't White," Laura Santhanam &amp; Megan Crigger, PBS NewsHour.<br>
+    [3] "Unmasking Oscar: Academy Voters Are Overwhelmingly White and Male," Los Angeles Times, 2012.</p>
+  </details>
+
+  <div class="article-tags">
+    <span class="badge">D3</span>
+    <span class="badge">Movies</span>
+    <span class="badge">Data Visualization</span>
+  </div>
+
+  <div class="author-card">
+    <h5>Ted Carlson</h5>
+    <h6>Data Scientist</h6>
+    <p>Ethnicity and gender assumptions were made using public records; corrections are welcome via the repository below.</p>
+    <ul class="network-icon">
+      <li><a href="https://github.com/tce9232/oscars-so-white" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.57.1.78-.25.78-.55v-1.94c-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.07.78 2.15v3.19c0 .3.21.66.79.55A10.51 10.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"/></svg>
+      </a></li>
+    </ul>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>&copy; 2026 Oscars So White</p>
+    <p>Powered by <a href="https://github.com/tce9232/oscars-so-white" target="_blank" rel="noopener">GitHub Pages</a></p>
   </div>
 </footer>
-  </div>
-  
 
-  
-<div id="modal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Cite</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <pre><code class="tex hljs"></code></pre>
-      </div>
-      <div class="modal-footer">
-        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
-          <i class="fas fa-copy"></i> Copy
-        </a>
-        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
-          <i class="fas fa-download"></i> Download
-        </a>
-        <div id="modal-error"></div>
-      </div>
-    </div>
-  </div>
-</div>
+<div class="chart-tooltip" id="chart-tooltip"></div>
+
+<script>
+  (function(){
+    var body = document.body;
+    var toggle = document.querySelector('.js-dark-toggle');
+    var moonIcon = toggle.querySelector('.icon-moon');
+    var sunIcon = toggle.querySelector('.icon-sun');
+
+    function applyMode(isDark){
+      body.classList.toggle('dark', isDark);
+      moonIcon.style.display = isDark ? 'none' : '';
+      sunIcon.style.display = isDark ? '' : 'none';
+    }
+
+    var stored = localStorage.getItem('dark_mode');
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    applyMode(stored === '1' || (stored === null && prefersDark));
+
+    toggle.addEventListener('click', function(){
+      var isDark = !body.classList.contains('dark');
+      applyMode(isDark);
+      localStorage.setItem('dark_mode', isDark ? '1' : '0');
+    });
+  })();
+</script>
+
+<script>
+  (function(){
+    var tooltip = d3.select('#chart-tooltip');
+
+    function showTooltip(event, d){
+      tooltip
+        .style('opacity', 1)
+        .html('<strong>' + d.Name + '</strong>' + d.Value +
+              (d.Film ? ' &middot; ' + d.Film : '') +
+              (d.Role ? '<br>' + d.Role : ''));
+      moveTooltip(event);
+    }
+    function moveTooltip(event){
+      var pad = 14;
+      var tw = tooltip.node().offsetWidth;
+      var left = event.clientX + pad;
+      if (left + tw > window.innerWidth - 10) left = event.clientX - tw - pad;
+      tooltip.style('left', left + 'px').style('top', (event.clientY + pad) + 'px');
+    }
+    function hideTooltip(){
+      tooltip.style('opacity', 0);
+    }
+
+    function renderTimeline(containerId, rows, opts){
+      var el = document.getElementById(containerId);
+      if (!el || !rows.length) return;
+
+      var width = Math.max(el.clientWidth, 320);
+      var isNarrow = width < 600;
+      var margin = {top: 10, right: 18, bottom: 6, left: 18};
+      var innerWidth = width - margin.left - margin.right;
+      var r = isNarrow ? 3 : 4.5;
+      var spacing = 2 * r + 3;
+      var axisSpace = 26;
+
+      var years = rows.map(function(d){ return d.Value; });
+      var domain = [d3.min(years) - 1, d3.max(years) + 1];
+      var x = d3.scaleLinear().domain(domain).range([0, innerWidth]);
+
+      // group by year and compute each dot's stack position first, so the
+      // chart height can be sized to fit the tallest stack with no overlap
+      var byYear = d3.group(rows, function(d){ return d.Value; });
+      var nodes = [];
+      var maxAbove = 0, maxBelow = 0;
+      byYear.forEach(function(yearRows){
+        var above = yearRows.filter(function(d){ return d[opts.groupField] === opts.aboveValue; });
+        var below = yearRows.filter(function(d){ return d[opts.groupField] === opts.belowValue; });
+        maxAbove = Math.max(maxAbove, above.length);
+        maxBelow = Math.max(maxBelow, below.length);
+        above.forEach(function(d, i){
+          nodes.push(Object.assign({}, d, { offset: -(i * spacing + r + 3) }));
+        });
+        below.forEach(function(d, i){
+          nodes.push(Object.assign({}, d, { offset: (i * spacing + r + 3) }));
+        });
+      });
+
+      var aboveSpace = maxAbove * spacing + r + 6;
+      var belowSpace = maxBelow * spacing + r + 6;
+      var centerY = margin.top + aboveSpace;
+      var height = centerY + belowSpace + axisSpace + margin.bottom;
+
+      var svg = d3.select('#' + containerId)
+        .append('svg')
+          .attr('viewBox', '0 0 ' + width + ' ' + height)
+          .attr('preserveAspectRatio', 'xMinYMin meet');
+
+      var g = svg.append('g')
+        .attr('transform', 'translate(' + margin.left + ',0)');
+
+      // thin reference line marking the "timeline" that dots stack around
+      g.append('line')
+        .attr('class', 'axis-centerline')
+        .attr('x1', 0).attr('x2', innerWidth)
+        .attr('y1', centerY).attr('y2', centerY)
+        .attr('stroke', 'var(--border)');
+
+      g.append('g')
+        .attr('class', 'axis')
+        .attr('transform', 'translate(0,' + (centerY + belowSpace) + ')')
+        .call(d3.axisBottom(x).tickFormat(d3.format('d')).ticks(isNarrow ? 5 : 10).tickSize(6));
+
+      g.selectAll('circle')
+        .data(nodes)
+        .enter()
+        .append('circle')
+          .attr('cx', function(d){ return x(d.Value); })
+          .attr('cy', function(d){ return centerY + d.offset; })
+          .attr('r', r)
+          .attr('class', function(d){ return d.Winner === 'Winner' ? 'dot-winner' : 'dot-nominee'; })
+          .on('mouseenter', showTooltip)
+          .on('mousemove', moveTooltip)
+          .on('mouseleave', hideTooltip);
+    }
+
+    function loadAndRender(containerId, file, opts){
+      d3.csv(file, function(d){
+        d.Value = +d.Value;
+        return d;
+      }).then(function(rows){
+        renderTimeline(containerId, rows, opts);
+      }).catch(function(err){
+        console.error('Failed to load ' + file, err);
+        var el = document.getElementById(containerId);
+        if (el) el.innerHTML = '<p style="color:var(--text-muted);font-size:.85rem;">Chart data unavailable.</p>';
+      });
+    }
+
+    loadAndRender('chart-actor', 'data/actor.csv', { groupField: 'Race', aboveValue: 'Non-White', belowValue: 'White' });
+    loadAndRender('chart-actress', 'data/actress.csv', { groupField: 'Race', aboveValue: 'Non-White', belowValue: 'White' });
+    loadAndRender('chart-sactor', 'data/sactor.csv', { groupField: 'Race', aboveValue: 'Non-White', belowValue: 'White' });
+    loadAndRender('chart-sactress', 'data/sactress.csv', { groupField: 'Race', aboveValue: 'Non-White', belowValue: 'White' });
+    loadAndRender('chart-director', 'data/director.csv', { groupField: 'Race', aboveValue: 'Non-White', belowValue: 'White' });
+    loadAndRender('chart-director-gender', 'data/director.csv', { groupField: 'Gender', aboveValue: 'Female', belowValue: 'Male' });
+  })();
+</script>
 
 </body>
 </html>
