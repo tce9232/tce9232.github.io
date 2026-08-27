@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css?family=Lato:400,700,900|Open+Sans&display=swap" rel="stylesheet">
-<script src="js/d3.v7.min.js"></script>
+<script src="d3.v7.min.js"></script>
 <style>
   :root{
     --accent:#fc6f5c;
@@ -607,12 +607,12 @@
       });
     }
 
-    loadAndRender('chart-actor', 'data/actor.csv', { groupField: 'Race', aboveValue: 'Non-White', belowValue: 'White' });
-    loadAndRender('chart-actress', 'data/actress.csv', { groupField: 'Race', aboveValue: 'Non-White', belowValue: 'White' });
-    loadAndRender('chart-sactor', 'data/sactor.csv', { groupField: 'Race', aboveValue: 'Non-White', belowValue: 'White' });
-    loadAndRender('chart-sactress', 'data/sactress.csv', { groupField: 'Race', aboveValue: 'Non-White', belowValue: 'White' });
-    loadAndRender('chart-director', 'data/director.csv', { groupField: 'Race', aboveValue: 'Non-White', belowValue: 'White' });
-    loadAndRender('chart-director-gender', 'data/director.csv', { groupField: 'Gender', aboveValue: 'Female', belowValue: 'Male' });
+    loadAndRender('chart-actor', 'actor.csv', { groupField: 'Race', aboveValue: 'Non-White', belowValue: 'White' });
+    loadAndRender('chart-actress', 'actress.csv', { groupField: 'Race', aboveValue: 'Non-White', belowValue: 'White' });
+    loadAndRender('chart-sactor', 'sactor.csv', { groupField: 'Race', aboveValue: 'Non-White', belowValue: 'White' });
+    loadAndRender('chart-sactress', 'sactress.csv', { groupField: 'Race', aboveValue: 'Non-White', belowValue: 'White' });
+    loadAndRender('chart-director', 'director.csv', { groupField: 'Race', aboveValue: 'Non-White', belowValue: 'White' });
+    loadAndRender('chart-director-gender', 'director.csv', { groupField: 'Gender', aboveValue: 'Female', belowValue: 'Male' });
   })();
 </script>
 
